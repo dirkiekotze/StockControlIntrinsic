@@ -1,0 +1,340 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background"
+    android:scrollbars="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/greenStockControl"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/header_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/header_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/header_icon"
+                    android:paddingTop="10dp"
+                    android:text="Add Audit Item"
+                    android:textColor="@color/white"
+                    android:textSize="30dp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_toolbar"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            android:padding="10px"
+            android:weightSum="1">
+
+            <!--Barcode-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:gravity="left"
+                android:text="Barcode:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/barcode"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:hint="Enter barcode here"
+                android:textColor="@color/black_text"
+                android:textSize="30dp" />
+
+            <!--Item Category-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="Item Category:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/categoryDropdown"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:gravity="left"
+                android:spinnerMode="dropdown" />
+
+            <!--Item Type-->
+            <TextView
+                android:id="@+id/itemTypeLabel"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Item Type:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/itemTypeDropdown"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:gravity="left"
+                android:spinnerMode="dropdown"
+                android:visibility="gone" />
+
+            <!--Vehicle-->
+            <TextView
+                android:id="@+id/vehicleLabel"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Select Vehicle:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/vehicleDropdown"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:gravity="left"
+                android:spinnerMode="dropdown" />
+
+            <!--Condition2 Spinner-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Select Condition:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/condition2"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:entries="@array/condition2"
+                android:gravity="left"
+                android:spinnerMode="dropdown" />
+
+            <!--Requires Inspection:-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:gravity="left"
+                android:text="Requires Inspection"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/requiresInspectionDropdown"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:gravity="left"
+                android:spinnerMode="dropdown" />
+
+            <!--Test Due Date-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:gravity="left"
+                android:text="Test Due Date:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/testDueDate"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/rounded_corners"
+                android:gravity="left"
+                android:textSize="30dp" />
+
+            <!--End Of Live Date-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:gravity="left"
+                android:text="End of Life Date:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/endOfLiveDate"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/rounded_corners"
+                android:gravity="left"
+                android:textSize="30dp" />
+
+
+            <!--Last Test By-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:gravity="left"
+                android:text="Last Test By:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/lastTestBy"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/rounded_corners"
+                android:gravity="left"
+                android:inputType="text"
+                android:textColor="@color/black_text"
+                android:textSize="30dp" />
+
+            <!--Test Report Number-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:gravity="left"
+                android:text="Report Number:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/testReportNumber"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/rounded_corners"
+                android:gravity="left"
+                android:inputType="text"
+                android:textColor="@color/black_text"
+                android:textSize="30dp" />
+
+            <!--Note-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:gravity="left"
+                android:text="Note:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/rounded_corners"
+                android:gravity="left"
+                android:hint="Enter note here"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:textColor="@color/black_text"
+                android:textSize="30dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:onClick="doStartContinue"
+                    android:layout_marginRight="4dp"
+                    android:text="Save" />
+
+                <Button
+                    android:id="@+id/cancelBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:onClick="doCancel"
+                    android:text="Cancel" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

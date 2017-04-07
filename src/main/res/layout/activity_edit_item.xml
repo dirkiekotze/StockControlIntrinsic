@@ -1,0 +1,287 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
+    android:background="@drawable/background">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/greenStockControl"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/header_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/header_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/header_icon"
+                    android:paddingTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    android:text="Edit Audit Item"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_toolbar"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            android:padding="10px"
+            android:weightSum="1">
+
+            <!--Item Name-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Item Name:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/itemName"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:hint="Item Name here"
+                android:textColor="@color/black_text"
+                android:textSize="30dp" />
+
+            <!--Barcode-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Barcode:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/barcode"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:hint="Enter barcode here"
+                android:textColor="@color/black_text"
+                android:textSize="30dp" />
+
+            <!--Condition2 Spinner-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Select Condition:"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/condition2"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:background="@android:drawable/btn_dropdown"
+                android:entries="@@array/condition2"
+                android:layout_marginBottom="20dp"
+                android:spinnerMode="dropdown" />
+
+            <!--Vehicle-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Vehicle:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/vehicle"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left"
+                android:textColor="@color/black_text"
+                android:textSize="30dp" />
+
+            <!--End Of Live Date-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="End of Life Date:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/endOfLiveDate"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corners"
+                android:textSize="30dp"
+                 />
+
+            <!--Test Due Date-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="Test Due Date:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/testDueDate"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corners"
+                android:textSize="30dp" />
+
+
+            <!--Last Test By-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="Last Test By:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/lastTestBy"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left"
+                android:inputType="text"
+                android:textColor="@color/black_text"
+                android:background="@drawable/rounded_corners"
+                android:textSize="30dp" />
+
+            <!--Test Report Number-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="Test Report Number:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/testReportNumber"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left"
+                android:inputType="text"
+                android:textColor="@color/black_text"
+                android:background="@drawable/rounded_corners"
+                android:textSize="30dp" />
+
+            <!--Note-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="Note:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="left"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:textColor="@color/black_text"
+                android:background="@drawable/rounded_corners"
+                android:textSize="30dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:onClick="doEdit"
+                    android:layout_weight="1"
+                    android:layout_marginRight="4dp"
+                    android:text="Save" />
+
+                <Button
+                    android:id="@+id/cancelBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:onClick="doCancel"
+                    android:text="Cancel" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

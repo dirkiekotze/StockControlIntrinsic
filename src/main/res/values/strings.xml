@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">PlantEquipment</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+
+    <!--Crash Report-->
+    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
+    <string name="crash_dialog_title">CrashTest has crashed</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the  application to stop. Please help us fix this by sending us error data,   all you have to do is click OK.</string>
+    <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="crash_dialog_ok_toast">Thank you !</string>
+    <string name="title_activity_eod_data">EodData</string>
+    <string name="do_end_day_reset">Do End of Day Reset</string>
+    <string name="print_takings_and_sales_report"><![CDATA[Print Takings & Sales Report]]></string>
+    <string name="title_activity_vehicle_and_checklist_select">VehicleAndChecklistSelect</string>
+    <string name="title_activity_audit_items">AuditItems</string>
+    <string name="title_activity_add_item">AddItem</string>
+    <string name="item_type">Item Type</string>
+    <string name="item_category">Item Category</string>
+    <string name="select_vehicle">Select Vehicle</string>
+    <string name="requires_inspection">Requires Inspection</string>
+
+    <string-array name="condition2">
+        <item>Pass</item>
+        <item>Fail</item>
+    </string-array>
+</resources>

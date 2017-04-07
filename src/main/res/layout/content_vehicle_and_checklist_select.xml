@@ -1,0 +1,366 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/greenStockControl"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/header_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/header_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/header_icon"
+                    android:paddingTop="10dp"
+                    android:text="Vehicle And Checklist"
+                    android:textColor="@color/white"
+                    android:textSize="30dp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <!--Main Layout-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <!--Select Details-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_green"
+                android:gravity="center"
+                android:text="Select Details"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+            <!--Vehicle Spinner-->
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Select Vehicle:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/vehicleDropdown"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+
+            <!--Checklist Spinner-->
+            <TextView
+                android:id="@+id/checklistLabel"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:text="Select Check List:"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/checklistDropdown"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+
+
+            <!--Vehicle Information Label-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_green"
+                android:gravity="center"
+                android:text="Vehicle Information"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+            <!--Layout for Rego and Type-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rego:"
+                        android:textColor="@color/greenStockControl"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/rego"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Rego"
+                        android:textColor="@color/greenStockControl"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="15dp"
+                   >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type:"
+                        android:textColor="@color/greenStockControl"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Rego"
+                        android:textColor="@color/greenStockControl"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--Last Odometer Reading Label-->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Last Odometer Reading:"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/kms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kms"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <!--Current Odometer Label and EditText-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/odometer_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="Enter Current Odometer Reading: "
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="25dp" />
+
+                <EditText
+                    android:id="@+id/currentKms"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/odometer_label"
+                    android:background="@drawable/rounded_corners"
+                    android:inputType="number"
+                    android:textSize="30dp"
+                    />
+
+            </RelativeLayout>
+
+            <!--Service Due...-->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service Due:"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/serviceDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kms"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+
+            <!--Service Plant...-->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="40dp">
+
+                <TextView
+                    android:id="@+id/servicePlantLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service Plant:"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/servicePlant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kms"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+
+            <!--Plant Elec...-->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="40dp">
+
+                <TextView
+                    android:id="@+id/plantElectTestDateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plant Elec:"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/plantElectTestDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kms"
+                    android:textColor="@color/greenStockControl"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/dailyChecklist"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/button_white"
+                android:enabled="true"
+                android:onClick="doDailyChecklist"
+                android:padding="4dp"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+            <Button
+                android:id="@+id/startEqupmentChecklist"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/button_white"
+                android:onClick="doEquipmentChecklist"
+                android:padding="4dp"
+                android:text="Equipment Checklist (checklist date), Not Started"
+                android:textColor="@color/greenStockControl"
+                android:textSize="30dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
