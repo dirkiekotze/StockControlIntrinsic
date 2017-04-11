@@ -1,7 +1,10 @@
 package intrinsic_plant_equipment.plantequipment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -28,10 +31,12 @@ import java.util.Date;
 import java.util.List;
 
 import intrinsic_plant_equipment.plantequipment.async.GetAuditItemsPerChecklistAndVehicle;
+import intrinsic_plant_equipment.plantequipment.async.GetChecklistAuditEntry;
 import intrinsic_plant_equipment.plantequipment.async.GetItems;
 import intrinsic_plant_equipment.plantequipment.helper.Core;
 import intrinsic_plant_equipment.plantequipment.helper.IEquipmentPreferences;
 import intrinsic_plant_equipment.plantequipment.model.Checklist;
+import intrinsic_plant_equipment.plantequipment.model.ChecklistAudit;
 import intrinsic_plant_equipment.plantequipment.model.ChecklistVehicleIds;
 import intrinsic_plant_equipment.plantequipment.model.Vehicle;
 import intrinsic_plant_equipment.plantequipment.model.VehicleAudit;
@@ -57,11 +62,7 @@ public class VehicleAndChecklistSelect extends BaseClass {
     int checklistId = 0;
     int vehicleId = 0;
     Context context;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    boolean doButtonText = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,9 @@ public class VehicleAndChecklistSelect extends BaseClass {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        Intent i = getIntent();
+        doButtonText = i.getBooleanExtra("doButtonText", false);
 
         mPreferences = Core.get().getPreferences();
         context = this;
@@ -115,6 +119,7 @@ public class VehicleAndChecklistSelect extends BaseClass {
         } catch (Exception err) {
 
             Core.get().showMessage("Error occurred in Checklist Spinner : Message " + err.getMessage(), this, TAG);
+
         } finally {
 
             if (db != null) {
@@ -132,57 +137,75 @@ public class VehicleAndChecklistSelect extends BaseClass {
         //Delete and Add Items
         DbHelper db = null;
 
-        //Sync Logic
-        try {
+        if (!Core.get().isConnectedToInternet(this)) {
 
-            //Delete Items
-            db = DbHelper.getInstance(this);
+            Core.get().showMessage("You are not Connected to Internet.", this, TAG);
 
-            //Where Status <> new
-            db.deleteItemNotNew(this);
+            startActivity(new Intent(this,AuditItems.class));
 
-            //Add Items
-            GetItems getItems = new GetItems(this, false, false);
-            getItems.execute("start");
+        } else {
+
+            //Sync Logic: Need Internet
+            try {
+
+                //You Need Internet
+                db = DbHelper.getInstance(this);
+
+                //Add If Applicable to Checklist Audit Table
+                GetChecklistAuditEntry checklistAudit = new GetChecklistAuditEntry(this, false);
+                checklistAudit.execute(new ChecklistVehicleIds(mPreferences.getChecklistId(), mPreferences.getVehicleId()));
+
+                //Where Status <> new
+                db.deleteItemNotNew(this);
+
+                //Add Items
+                GetItems getItems = new GetItems(this, false, false);
+                getItems.execute("start");
 
 
-        } catch (Exception err) {
+            } catch (Exception err) {
 
-            Core.get().showMessage("Error occurred in Checklist Sinner : Message " + err.getMessage(), this, TAG);
+                Core.get().showMessage("Error occurred in Checklist Sinner : Message " + err.getMessage(), this, TAG);
 
-        } finally {
+            } finally {
 
-            if (db != null) {
-                db.close();
+                if (db != null) {
+                    db.close();
+                }
+
+            }
+
+            //Rest: Need Internet
+            try {
+                db = DbHelper.getInstance(this);
+
+                //Populate VehicleAuditRecord
+                doVehicleAuditLogic();
+
+                //Delete all status <> 'new'
+                db.deleteItemAuditStusNotNew(this);
+
+                //Add Audit Items Per Vehicle and Checklist
+                GetAuditItemsPerChecklistAndVehicle audit = new GetAuditItemsPerChecklistAndVehicle(this, true);
+                audit.execute(new ChecklistVehicleIds(checklistId, vehicleId));
+
+            } catch (Exception err) {
+
+                Core.get().showMessage("Error occurred in doStartContinue : Message " + err.getMessage(), this, TAG);
+
+            } finally {
+
+                if (db != null) {
+                    db.close();
+                }
+
             }
 
         }
 
-        //Rest
-        try {
-            db = DbHelper.getInstance(this);
 
-            //Populate VehicleAuditRecord
-            doVehicleAuditLogic();
 
-            //Delete all status <> 'new'
-            db.deleteItemAuditStusNotNew(this);
 
-            //Add Audit Items Per Vehicle and Checklist
-            GetAuditItemsPerChecklistAndVehicle audit = new GetAuditItemsPerChecklistAndVehicle(this, true);
-            audit.execute(new ChecklistVehicleIds(checklistId, vehicleId));
-
-        } catch (Exception err) {
-
-            Core.get().showMessage("Error occurred in doStartContinue : Message " + err.getMessage(), this, TAG);
-
-        } finally {
-
-            if (db != null) {
-                db.close();
-            }
-
-        }
 
     }
 
@@ -395,6 +418,8 @@ public class VehicleAndChecklistSelect extends BaseClass {
 
                 if (vehicle != null) {
 
+                    createButtonText();
+
                     if (vehicle.getType().toLowerCase().equals("ewp")) {
                         plantElectTestDate.setVisibility(View.VISIBLE);
                         servicePlant.setVisibility(View.VISIBLE);
@@ -428,6 +453,68 @@ public class VehicleAndChecklistSelect extends BaseClass {
         }
     }
 
+    private void createButtonText() {
+
+        DbHelper db = null;
+
+        if (!Core.get().isConnectedToInternet(this)) {
+
+            Core.get().showMessage("You are not Connected to Internet", this, TAG);
+            doPopulateButtonText();
+
+        } else {
+            try {
+                db = DbHelper.getInstance(this);
+
+
+                //Have Not redirected back yet
+                if (!doButtonText) {
+
+                    GetChecklistAuditEntry checklistAudit = new GetChecklistAuditEntry(this, true);
+                    checklistAudit.execute(new ChecklistVehicleIds(mPreferences.getChecklistId(), mPreferences.getVehicleId()));
+                    return;
+
+                } else {
+
+                    doPopulateButtonText();
+
+                }
+
+                doButtonText = false;
+
+            } catch (Exception err) {
+
+                Core.get().showMessage("Unable to createButtonText ", this, TAG);
+
+                doPopulateButtonText();
+
+            } finally {
+
+                if (db != null) {
+                    db.close();
+                }
+
+            }
+        }
+
+
+    }
+
+    private void doPopulateButtonText() {
+
+        Drawable drawCross = ResourcesCompat.getDrawable(getResources(), R.drawable.crossincircle, null);
+        Drawable drawCheck = ResourcesCompat.getDrawable(getResources(), R.drawable.checkincircle, null);
+
+        //Check or Cross:
+        if (mPreferences.getVehicleAuditExistId() == mPreferences.getVehicleId()) {
+            startEqupmentChecklist.setCompoundDrawablesWithIntrinsicBounds(null, null, drawCheck, null);
+            startEqupmentChecklist.setText("Equipment Checklist (" + mPreferences.getChecklistDate() + "), Started");
+        } else {
+            startEqupmentChecklist.setCompoundDrawablesWithIntrinsicBounds(null, null, drawCross, null);
+            startEqupmentChecklist.setText("Equipment Checklist (" + mPreferences.getChecklistDate() + "), Not Started");
+        }
+    }
+
     public void vehicleSpinnerLogic() {
 
         DbHelper db = null;
@@ -440,8 +527,8 @@ public class VehicleAndChecklistSelect extends BaseClass {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             vehicleDropdown.setAdapter(adapter);
 
-            if(mPreferences.getVehicleId() != 0){
-                vehicleDropdown.setSelection(getIndex(vehicleDropdown,mPreferences.getVehicleId()));
+            if (mPreferences.getVehicleId() != 0) {
+                vehicleDropdown.setSelection(getIndex(vehicleDropdown, mPreferences.getVehicleId()));
             }
 
 
@@ -479,11 +566,11 @@ public class VehicleAndChecklistSelect extends BaseClass {
 
     private int getIndex(Spinner vehicleDropdown, int vehicleId) {
 
-        for (int i = 0; i < vehicleDropdown.getCount() ; i++) {
+        for (int i = 0; i < vehicleDropdown.getCount(); i++) {
 
-            Vehicle vehicle = (Vehicle)vehicleDropdown.getItemAtPosition(i);
-            if(vehicle != null){
-                if(vehicle.getVehicleId() == vehicleId){
+            Vehicle vehicle = (Vehicle) vehicleDropdown.getItemAtPosition(i);
+            if (vehicle != null) {
+                if (vehicle.getVehicleId() == vehicleId) {
                     return i;
                 }
             }

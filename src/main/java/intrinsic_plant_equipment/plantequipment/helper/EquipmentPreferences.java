@@ -17,6 +17,18 @@ public class EquipmentPreferences implements IEquipmentPreferences {
 
 
     @Override
+    public void setVehicleAuditExistId(int vehicleId) {
+        final SharedPreferences.Editor edit = mSharedPrefs.edit();
+        edit.putInt(Constants.VEHICLE_AUDIT_ID, vehicleId);
+        edit.commit();
+    }
+
+    @Override
+    public int getVehicleAuditExistId() {
+        return mSharedPrefs.getInt(Constants.VEHICLE_AUDIT_ID,0);
+    }
+
+    @Override
     public void setHadAuditRecords(int hadAuditRecords) {
         final SharedPreferences.Editor edit = mSharedPrefs.edit();
         edit.putInt(Constants.HAD_PREVIOUS_AUDIT_RECORDS, hadAuditRecords);

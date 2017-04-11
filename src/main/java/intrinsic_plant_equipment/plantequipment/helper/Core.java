@@ -3,6 +3,8 @@ package intrinsic_plant_equipment.plantequipment.helper;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -127,6 +129,18 @@ public class Core {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public static boolean isConnectedToInternet(Context context) {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        if(networkInfo != null && networkInfo.isConnected()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     //For Extracting User Info: In order to create OauthToken

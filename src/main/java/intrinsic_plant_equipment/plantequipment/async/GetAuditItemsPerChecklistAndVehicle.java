@@ -85,8 +85,8 @@ public class GetAuditItemsPerChecklistAndVehicle extends AsyncTask<ChecklistVehi
                         if (lstItemAudit.get(i).getVehicleId() == mPreferences.getVehicleId()) {
                             conditionValue = lstItemAudit.get(i).getCondition();
                         } else {
-                            conditionValue = "Invalid Vehicle:" + lstItemAudit.get(i).getVehicleId() + " - Found on : " + mPreferences.getVehicleRego();
-                            foundOnVehicle = lstItemAudit.get(i).getVehicleId();
+                            conditionValue = "Invalid VehicleId:" + lstItemAudit.get(i).getVehicleId() + " - Found on : " + mPreferences.getVehicleRego();
+                            foundOnVehicle = mPreferences.getVehicleId();
                         }
 
                         db.addItemAudit(context, new ItemAudit(

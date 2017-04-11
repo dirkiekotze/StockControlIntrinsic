@@ -83,13 +83,22 @@ public class Login extends BaseClass {
 
         Core.get().hideKeyboard(this,this);
 
-        //Valid Login Values
-        if(validateInput()){
+        if(Core.get().isConnectedToInternet(this)){
+            //Valid Login Values
+            if(validateInput()){
 
-            intrinsic_plant_equipment.plantequipment.async.Login login = new intrinsic_plant_equipment.plantequipment.async.Login(this,true);
-            login.execute(new LoginClass(userNameText.getText().toString(),passwordText.getText().toString()));
+                intrinsic_plant_equipment.plantequipment.async.Login login = new intrinsic_plant_equipment.plantequipment.async.Login(this,true);
+                login.execute(new LoginClass(userNameText.getText().toString(),passwordText.getText().toString()));
+
+            }
+        }
+        else{
+
+            Core.get().showMessage("You are not Connected to Internet. Unable to Login",this,TAG);
 
         }
+
+
 
 
     }

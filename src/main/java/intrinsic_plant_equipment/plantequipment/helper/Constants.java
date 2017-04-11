@@ -15,4 +15,5 @@ public class Constants {
     public static final String CHECKLIST_ID = "checklistId";
     public static final String USER_ID = "userId";
     public static final String HAD_PREVIOUS_AUDIT_RECORDS = "had_audit_records";
+    public static final String VEHICLE_AUDIT_ID = "vehicleAuditId";
 }

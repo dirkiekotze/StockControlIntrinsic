@@ -22,14 +22,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import intrinsic_plant_equipment.plantequipment.async.GetChecklistAuditEntry;
 import intrinsic_plant_equipment.plantequipment.async.GetItems;
 import intrinsic_plant_equipment.plantequipment.async.InsertNewItemsToCloud;
 import intrinsic_plant_equipment.plantequipment.async.InsertNewVehicleAuditToCloud;
 import intrinsic_plant_equipment.plantequipment.helper.Core;
 import intrinsic_plant_equipment.plantequipment.helper.IEquipmentPreferences;
 import intrinsic_plant_equipment.plantequipment.model.AuditCombinedData;
+import intrinsic_plant_equipment.plantequipment.model.ChecklistVehicleIds;
 import intrinsic_plant_equipment.plantequipment.model.Item;
 import intrinsic_plant_equipment.plantequipment.model.ItemAudit;
+import intrinsic_plant_equipment.plantequipment.model.Vehicle;
 import intrinsic_plant_equipment.plantequipment.sqlLite.DbHelper;
 
 public class AuditItems extends BaseClass {
@@ -92,8 +95,9 @@ public class AuditItems extends BaseClass {
             db = DbHelper.getInstance(this);
 
             //ToDo:Remove This
-            //ArrayList<ItemAudit> aItems = db.getAllItemAuditRecords(context);
-            //List<Item> items = db.getAllItems(context, mPreferences.getVehicleId());
+            ArrayList<ItemAudit> aItems = db.getAllItemAuditRecords(context);
+            List<Item> items = db.getAllItems(context, mPreferences.getVehicleId());
+
             List<ItemAudit> wrongVehicleAudits = db.getAllItemAuditRecordsWrongVehicle(this, mPreferences.getVehicleId());
 
             //Normal Audit Records
@@ -191,7 +195,7 @@ public class AuditItems extends BaseClass {
 
 
                 //Create Table Row of Entries
-                if(auditLst != null){
+                if (auditLst != null) {
                     for (int i = 0; i < auditLst.size(); i++) {
 
                         populateTableRows(auditLst, i);
@@ -320,8 +324,8 @@ public class AuditItems extends BaseClass {
 
         try {
             db = DbHelper.getInstance(this);
-            Item item = db.getItemPerBarcode(this,itemAudit.getBarcode());
-            if(item != null){
+            Item item = db.getItemPerBarcode(this, itemAudit.getBarcode());
+            if (item != null) {
                 return item.getName();
             }
 
@@ -394,6 +398,13 @@ public class AuditItems extends BaseClass {
 
     public void doSync(View view) {
 
+        if (!Core.get().isConnectedToInternet(this)) {
+
+            Core.get().showMessage("You are not Connected to Internet.", this, TAG);
+            return;
+
+        }
+
         uploadDataToServer();
 
     }
@@ -405,6 +416,10 @@ public class AuditItems extends BaseClass {
 
         try {
 
+            GetChecklistAuditEntry checklistAudit = new GetChecklistAuditEntry(this, false);
+            checklistAudit.execute(new ChecklistVehicleIds(mPreferences.getChecklistId(), mPreferences.getVehicleId()));
+
+
             //Upload Vehicle: Load Vehicles to local DB again
             InsertNewVehicleAuditToCloud vehicleAudit = new InsertNewVehicleAuditToCloud(context, false);
             vehicleAudit.execute("start");
@@ -414,7 +429,7 @@ public class AuditItems extends BaseClass {
 
         } catch (Exception err) {
 
-            Core.get().showMessage("Error occurred in Checklist Sinner : Message " + err.getMessage(), this, TAG);
+            Core.get().showMessage("Error occurred in Checklist Spinner : Message " + err.getMessage(), this, TAG);
 
         } finally {
 

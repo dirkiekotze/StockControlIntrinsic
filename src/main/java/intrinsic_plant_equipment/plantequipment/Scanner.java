@@ -331,7 +331,7 @@ public class Scanner extends BaseClass {
 
         } catch (Exception err) {
 
-            
+
             Core.get().showMessage("Error occurred in doPass : Message " + err.getMessage(), this, TAG);
 
 

@@ -6,6 +6,10 @@ package intrinsic_plant_equipment.plantequipment.helper;
 
 public interface IEquipmentPreferences  {
 
+    void setVehicleAuditExistId(int vehicleId);
+
+    int getVehicleAuditExistId();
+
     void setHadAuditRecords(int hadAuditRecords);
 
     int getHadAuditRecords();

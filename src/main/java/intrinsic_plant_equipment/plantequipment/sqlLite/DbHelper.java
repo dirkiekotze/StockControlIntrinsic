@@ -14,6 +14,7 @@ import intrinsic_plant_equipment.plantequipment.helper.Core;
 import intrinsic_plant_equipment.plantequipment.model.AuditCombinedData;
 import intrinsic_plant_equipment.plantequipment.model.Category;
 import intrinsic_plant_equipment.plantequipment.model.Checklist;
+import intrinsic_plant_equipment.plantequipment.model.ChecklistAudit;
 import intrinsic_plant_equipment.plantequipment.model.Item;
 import intrinsic_plant_equipment.plantequipment.model.ItemAndItemAudit;
 import intrinsic_plant_equipment.plantequipment.model.ItemAudit;
@@ -31,7 +32,7 @@ public class DbHelper extends SQLiteOpenHelper {
     String TAG = DbHelper.class.getSimpleName();
 
     public DbHelper(Context context) {
-        super(context, "equipment", null, 102);
+        super(context, "equipment", null, 112);
     }
 
     public static DbHelper getInstance(Context ctx) {
@@ -183,7 +184,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-     public Vehicle getVehiclePerId(Context context, int vehicleId) {
+    public Vehicle getVehiclePerId(Context context, int vehicleId) {
 
         List<Vehicle> vehicleLst = new ArrayList<Vehicle>();
         SQLiteDatabase db = null;
@@ -302,7 +303,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     /*VehicleAudit*/
-    public void deleteVehicleAudit(Context context,int checklistId) {
+    public void deleteVehicleAudit(Context context, int checklistId) {
 
         SQLiteDatabase db = null;
 
@@ -324,7 +325,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void deleteVehicleAuditPerVehicleId(Context context,int vehicleId) {
+    public void deleteVehicleAuditPerVehicleId(Context context, int vehicleId) {
 
         SQLiteDatabase db = null;
 
@@ -427,7 +428,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public VehicleAudit getVehicleAuditPerVehicleId(Context context,int vehicleId) {
+    public VehicleAudit getVehicleAuditPerVehicleId(Context context, int vehicleId) {
 
         SQLiteDatabase db = null;
         Cursor cursor = null;
@@ -1046,14 +1047,14 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public int updateItemCondition2AndWrongVehicle(Context context, String barcode, String condition2,String rego,int vehicleId) {
+    public int updateItemCondition2AndWrongVehicle(Context context, String barcode, String condition2, String rego, int vehicleId) {
 
         SQLiteDatabase db = null;
         try {
 
             db = this.getWritableDatabase();
 
-            String sql = "Update ItemAudit set Condition = 'Invalid Vehicle: " + rego  + "', Condition2 = '" + condition2 + "', FoundOnVehicleId = " + vehicleId  + " where Barcode = '" + barcode + "'";
+            String sql = "Update ItemAudit set Condition = 'Invalid Vehicle: " + rego + "', Condition2 = '" + condition2 + "', FoundOnVehicleId = " + vehicleId + " where Barcode = '" + barcode + "'";
             db.execSQL(sql);
             return 1;
         } catch (Exception err) {
@@ -1068,7 +1069,7 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public int updateItemScanned(Context context, String barcode,int itemId, String endOfLiveDate, String rego, String testBy, String reportNumber, String testDueDate, String lastScannedDate) {
+    public int updateItemScanned(Context context, String barcode, int itemId, String endOfLiveDate, String rego, String testBy, String reportNumber, String testDueDate, String lastScannedDate) {
 
         SQLiteDatabase db = null;
 
@@ -1081,7 +1082,7 @@ public class DbHelper extends SQLiteOpenHelper {
             cv.put("testDueDate", testDueDate);
             cv.put("lastScannedDate", lastScannedDate);
             cv.put("rego", rego);
-            cv.put("status","new");
+            cv.put("status", "new");
             if (db.update("[Item]", cv, "barcode= '" + barcode + "'", null) > 0) {
                 return 1;
             } else {
@@ -1233,7 +1234,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 cursor.moveToFirst();
                 do {
                     //int cloudId   , String barcode     , String note        , String condition  , String date        , int checklistId , int vehicleId , String status,int id
-                    ItemAudit audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9),cursor.getInt(10));
+                    ItemAudit audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9), cursor.getInt(10));
                     lstAudit.add(audit);
                 } while (cursor.moveToNext());
 
@@ -1316,7 +1317,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 cursor.moveToFirst();
                 do {
                     //int cloudId   , String barcode     , String note        , String condition  , String date        , int checklistId , int vehicleId , String status,int id
-                    ItemAudit audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9),cursor.getInt(10));
+                    ItemAudit audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9), cursor.getInt(10));
                     lstAudit.add(audit);
                 } while (cursor.moveToNext());
 
@@ -1341,7 +1342,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public ArrayList<ItemAudit> getAllItemAuditRecordsWrongVehicle(Context context,int vehicleId) {
+    public ArrayList<ItemAudit> getAllItemAuditRecordsWrongVehicle(Context context, int vehicleId) {
 
         SQLiteDatabase db = null;
         Cursor cursor = null;
@@ -1352,14 +1353,14 @@ public class DbHelper extends SQLiteOpenHelper {
 
             //id INTEGER PRIMARY KEY,CloudId,VehicleId,ChecklistId,Date,Condition,Note,Barcode,Status
 
-            String sql = "SELECT ItemId,Barcode,Note,Condition,[Date],ChecklistId,VehicleId,Status,Id,Condition2,FoundOnVehicleId FROM ItemAudit where FoundOnVehicleId = " + vehicleId + "  order by ItemId";
+            String sql = "SELECT Distinct ItemId,Barcode,Note,Condition,[Date],ChecklistId,VehicleId,Status,Id,Condition2,FoundOnVehicleId FROM ItemAudit where FoundOnVehicleId = " + vehicleId + "  order by ItemId";
             cursor = db.rawQuery(sql, null);
 
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 do {
                     //int cloudId   , String barcode     , String note        , String condition  , String date        , int checklistId , int vehicleId , String status,int id
-                    ItemAudit audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9),cursor.getInt(10));
+                    ItemAudit audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9), cursor.getInt(10));
                     lstAudit.add(audit);
                 } while (cursor.moveToNext());
 
@@ -1383,7 +1384,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return null;
     }
-
 
     public ItemAudit getItemAuditPerBarcode(Context context, String barcode) {
 
@@ -1404,7 +1404,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 cursor.moveToFirst();
                 do {
                     //int cloudId   , String barcode     , String note        , String condition  , String date        , int checklistId , int vehicleId , String status,int id
-                    audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9),cursor.getInt(10));
+                    audit = new ItemAudit(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6), cursor.getString(7), cursor.getInt(8), cursor.getString(9), cursor.getInt(10));
 
                 } while (cursor.moveToNext());
 
@@ -1482,7 +1482,7 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             ArrayList<AuditCombinedData> lstProducts = new ArrayList<AuditCombinedData>();
             db = this.getWritableDatabase();
-            String sql = "SELECT i.name,i.TestDueDate,i.TestBy,ia.Note,ia.Condition,ia.Date,i.BarCode,i.VehicleId,i.ItemId,ia.ChecklistId,ia.Condition2 " +
+            String sql = "SELECT Distinct i.name,i.TestDueDate,i.TestBy,ia.Note,ia.Condition,ia.Date,i.BarCode,i.VehicleId,i.ItemId,ia.ChecklistId,ia.Condition2 " +
                     " FROM Item i left join ItemAudit ia on ia.BarCode = i.BarCode " +
                     " where i.VehicleId = " + vehicleId + " and (ia.checklistId = " + checklistId + " or ia.checklistId is null) order by ia.Condition desc,i.name";
             Core.get().logMessage(sql, TAG);

@@ -47,9 +47,6 @@ public class EditItem extends BaseClass implements View.OnClickListener {
     TextView barcode;
     Spinner condition2;
     Context context;
-    String name;
-    String rego;
-    Item item;
     int vehicleId;
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
@@ -228,7 +225,7 @@ public class EditItem extends BaseClass implements View.OnClickListener {
                     itemId,                                                            //CloudId
                     barcodeValue,                                                      //Barcode
                     note.getText().toString(),                                         //Note
-                    condition,                                                         //Condition
+                    "Scanned",                                                         //Condition
                     Core.get().getDate(new Date().getTime(), "dd/MM/yyyy"),            //Date
                     mPreferences.getChecklistId(),                                     //ChecklistId
                     vehicleId,                                                         //VehicleId
